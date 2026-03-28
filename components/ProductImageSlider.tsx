@@ -3,18 +3,21 @@
 import { ChevronDown, ChevronUp, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useCallback, useEffect, useRef } from "react";
 
-const images = [
-  "/fit1.jpeg",
-  "/fit2.jpeg",
-  "/fit1.jpeg",
-  "/fit2.jpeg",
-  "/fit1.jpeg",
-  "/fit2.jpeg",
-  "/fit1.jpeg",
-  "/fit2.jpeg",
-];
+// const images = [
+//   "/fit1.jpeg",
+//   "/fit2.jpeg",
+//   "/fit1.jpeg",
+//   "/fit2.jpeg",
+//   "/fit1.jpeg",
+//   "/fit2.jpeg",
+//   "/fit1.jpeg",
+//   "/fit2.jpeg",
+// ];
+type Props = {
+  images: string[];
+}
 
-export default function ProductImageSlider() {
+export default function ProductImageSlider({ images }: Props) {
   const [active, setActive] = useState(0);
   const [animating, setAnimating] = useState(false);
   const [direction, setDirection] = useState<"up" | "down">("down");

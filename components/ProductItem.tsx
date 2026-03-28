@@ -6,11 +6,12 @@ type Props = {
   image?: string;
   name: string;
   price: number;
+  onClick?: () => void;
 };
-function ProductItem({ image, name, price }: Props) {
+function ProductItem({ image, name, price, onClick }: Props) {
   const [isHovered, setIsHovered] = useState(false);
   return (
-    <div className="flex flex-col pb-4 cursor-pointer">
+    <div className="flex flex-col pb-4 cursor-pointer" onClick={onClick}>
       <div className="relative w-full h-[600px] mb-4" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
         {image ? (
           <img

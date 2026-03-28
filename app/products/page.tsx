@@ -1,9 +1,43 @@
 'use client';
 import NavBar from "@/components/NavBar";
 import ProductItem from "@/components/ProductItem"
+import api from "@/lib/axios";
+import { ProductSummary } from "@/types/products";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 function ProductsPage() {
-  const products = [
+  const [products, setProducts] = useState<ProductSummary[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const router = useRouter();
+
+  const handleProductClick = (id: number) => {
+    router.push(`/products/${id}`);
+  }
+
+  // Fetch products from API
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const { data } = await api.get("/api/products");
+        setProducts(data);
+      } catch (err) {
+        setError("Failed to fetch products");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProducts();
+  }, []);
+
+  if (loading) return <p className="text-center mt-10">Loading...</p>;
+  if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
+
+   // Mock data until API is ready
+  const productsMock = [
     {
       id: 1,
       name: "Product 1",
@@ -62,8 +96,7 @@ function ProductsPage() {
         <h1 className="text-center">Products</h1>
         <div className="grid grid-cols-4 gap-3 mt-5">
           {products.map(product => (
-            <ProductItem key={product.id} image={product.image} name={product.name} price={product.price}/>
-              
+            <ProductItem key={product.id} image={product.imageUrls?.[0]} name={product.name} price={product.price} onClick={() => handleProductClick(product.id)}/>
           ))}
         </div>
       </div>
