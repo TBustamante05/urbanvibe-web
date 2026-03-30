@@ -24,23 +24,22 @@ export async function proxy(request: NextRequest) {
   const isPublicRoute = publicRoutes.some(route => pathname.startsWith(route));
   const isAdminRoute = adminRoutes.some(route => pathname.startsWith(route));
 
-  // 1. Logueado intenta ir a login/register → mandarlo a productos
-  if (token && isAuthRoute) {
-    return NextResponse.redirect(new URL("/products", request.url));
-  }
-
-  // 2. Ruta pública → siempre dejar pasar
-  if (isPublicRoute) {
+  // 1. Ruta pública o auth sin token → siempre dejar pasar
+  if (isPublicRoute || isAuthRoute) {
+    // Pero si tiene token y va a login/register → redirigir a productos
+    if (token && isAuthRoute) {
+      return NextResponse.redirect(new URL("/products", request.url));
+    }
     return NextResponse.next();
   }
 
-  // 3. Ruta privada sin token → login
-  if (!token && !isPublicRoute) {
+  // 2. Ruta privada sin token → login
+  if (!token) {
     return NextResponse.redirect(new URL("/auth/login", request.url));
   }
 
-  // 4. Ruta de admin → verificar rol
-  if (token && isAdminRoute) {
+  // 3. Ruta de admin → verificar rol
+  if (isAdminRoute) {
     const role = await getRoleFromToken(token);
     if (role !== "ADMIN") {
       return NextResponse.redirect(new URL("/products", request.url));
