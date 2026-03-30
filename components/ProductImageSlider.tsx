@@ -3,16 +3,18 @@
 import { ChevronDown, ChevronUp, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useCallback, useEffect, useRef } from "react";
 
-// const images = [
-//   "/fit1.jpeg",
-//   "/fit2.jpeg",
-//   "/fit1.jpeg",
-//   "/fit2.jpeg",
-//   "/fit1.jpeg",
-//   "/fit2.jpeg",
-//   "/fit1.jpeg",
-//   "/fit2.jpeg",
-// ];
+/*
+const images = [
+  "/fit1.jpeg",
+  "/fit2.jpeg",
+  "/fit1.jpeg",
+  "/fit2.jpeg",
+  "/fit1.jpeg",
+  "/fit2.jpeg",
+  "/fit1.jpeg",
+  "/fit2.jpeg",
+];
+*/
 type Props = {
   images: string[];
 }
