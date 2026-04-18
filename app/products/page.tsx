@@ -1,6 +1,7 @@
 'use client';
 import NavBar from "@/components/NavBar";
 import ProductItem from "@/components/ProductItem"
+import { productsMock } from "@/data/mocks";
 import api from "@/lib/axios";
 import { ProductSummary } from "@/types/products";
 import { useRouter } from "next/navigation";
@@ -25,6 +26,8 @@ function ProductsPage() {
         setProducts(data);
       } catch (err) {
         setError("Failed to fetch products");
+        console.log(error)
+        setProducts(productsMock)
       } finally {
         setLoading(false);
       }
@@ -34,59 +37,10 @@ function ProductsPage() {
   }, []);
 
   if (loading) return <p className="text-center mt-10">Loading...</p>;
-  if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
+  // if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
 
    // Mock data until API is ready
-  const productsMock = [
-    {
-      id: 1,
-      name: "Product 1",
-      price: 29.99,
-      image: "/fit1.jpeg"
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      price: 49.99,
-      image: "/fit2.jpeg"
-    },
-    {
-      id: 3,
-      name: "Product 3",
-      price: 19.99,
-      image: "/fit1.jpeg"
-    },
-    {
-      id: 4,
-      name: "Product 4",
-      price: 39.99,
-      image: "/fit2.jpeg"
-    },
-    {
-      id: 5,
-      name: "Product 5",
-      price: 24.99,
-      image: "/fit1.jpeg"
-    },
-    {
-      id: 6,
-      name: "Product 6",
-      price: 59.99,
-      image: "/fit2.jpeg"
-    },
-    {
-      id: 7,
-      name: "Product 7",
-      price: 14.99,
-      image: "/fit1.jpeg"
-    },
-    {
-      id: 8,
-      name: "Product 8",
-      price: 44.99,
-      image: "/fit2.jpeg"
-    }
-  ]
+  
   return (
     <div className="py-8 px-12">
       {/* Header */}

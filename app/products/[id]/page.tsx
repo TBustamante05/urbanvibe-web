@@ -1,6 +1,7 @@
 'use client';
 import NavBar from "@/components/NavBar";
 import ProductImageSlider from "@/components/ProductImageSlider";
+import { productsDetailMock } from "@/data/mocks";
 import api from "@/lib/axios";
 import { Product } from "@/types/products";
 import { Heart } from "lucide-react";
@@ -23,6 +24,8 @@ function ProductDetail() {
         setProductDetails(data);
       } catch (err) {
         setError("Failed to fetch product details");
+        console.log(error)
+        setProductDetails(productsDetailMock.find(p => p.id === Number(id)) || null)
       } finally {
         setLoading(false);
       }

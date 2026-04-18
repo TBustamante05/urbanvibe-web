@@ -16,3 +16,12 @@ export type ProductSummary = {
   price: number;
   imageUrls?: string[];
 }
+
+// For Product listing cart page
+export type ProductCart = {
+  id: number;
+  name: string;
+  price: number;
+  imageUrl?: string;
+  quantity: number;
+}

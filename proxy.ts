@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 
 const authRoutes = ["/auth/login", "/auth/register"];
-const publicRoutes = ["/products"];
+const publicRoutes = ["/products", "/checkout/cart"];
 const adminRoutes = ["/admin"];
 
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET);
